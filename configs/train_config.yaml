@@ -1,0 +1,46 @@
+model:
+  vision_encoder: "microsoft/BiomedCLIP-PubMedBERT_256-vit_base_patch16_224"
+  llm_model: "meta-llama/Llama-2-7b-chat-hf"
+
+  freeze_vision_encoder: true
+  freeze_llm: false
+
+  load_in_4bit: true
+  bnb_4bit_quant_type: "nf4"
+  bnb_4bit_compute_dtype: "bfloat16"
+  bnb_4bit_use_double_quant: true
+
+peft:
+  use_peft: true
+  method: "qlora"
+
+  lora_r: 8
+  lora_alpha: 16
+  lora_dropout: 0.05
+
+  target_modules: ["q_proj", "v_proj", "k_proj", "o_proj"]
+
+training:
+  output_dir: "./outputs/checkpoints"
+
+  num_train_epochs: 3
+  per_device_train_batch_size: 1
+  gradient_accumulation_steps: 16
+
+  learning_rate: 2e-4
+  warmup_ratio: 0.03
+  lr_scheduler_type: "cosine"
+
+  logging_steps: 20
+  save_strategy: "epoch"
+
+  bf16: true
+  fp16: false
+
+  gradient_checkpointing: true
+
+  max_seq_length: 256
+  max_image_size: 224
+
+  dataloader_num_workers: 2
+  remove_unused_columns: false

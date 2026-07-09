@@ -1,0 +1,10 @@
+rag:
+  vector_store_type: "faiss"
+
+  embeddiing_model: "sentence_transformers/all-MiniLM-L6-v2"
+
+  index_path: "./data/rag_database/pathvqa_faiss.index"
+  metadata_path: "./data/rag_database/pathvqa_metadata.pkl"
+
+  top_k: 5
+  use_multimodal: false

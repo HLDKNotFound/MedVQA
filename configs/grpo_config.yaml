@@ -1,0 +1,6 @@
+grpo:
+  use_grpo: false
+  group_size: 4
+  kl_coeff: 0.1
+  clip_eps: 0.2
+  max_new_tokens: 64
